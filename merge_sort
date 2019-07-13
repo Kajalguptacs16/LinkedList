@@ -1,0 +1,77 @@
+import java.util.*;
+public class Main
+{
+    static Node head1,head2;
+    static class Node 
+    {
+        int data;
+        Node next;
+        Node(int d){
+            data = d;
+            next = null;
+        }
+    }
+    
+    static Node sortedMerge(Node a, Node b){
+        Node res = null;
+        if(a==null)
+            return b;
+        if(b==null)
+            return a;
+        if(a.data<=b.data){
+            res = a;
+            res.next = sortedMerge(a.next,b);
+        }
+        else{
+            res = b;
+            res.next = sortedMerge(a,b.next);
+        }
+        return res;
+    }
+    
+    static Node mergeSort(Node head1){
+        if(head1==null || head1.next==null)
+            return head1;
+        Node middle = getMiddle(head1);
+        Node nextMiddle = middle.next;
+        middle.next = null;
+        Node left = mergeSort(head1);
+        Node right = mergeSort(nextMiddle);
+        Node sortedList = sortedMerge(left,right);
+        return sortedList;
+    }
+    
+    static Node getMiddle(Node temp){
+        Node slow_ptr = temp;
+        Node fast_ptr = temp.next;
+        while(fast_ptr!=null && fast_ptr.next!=null){
+            slow_ptr = slow_ptr.next;
+            fast_ptr = fast_ptr.next.next;
+        }
+        return slow_ptr;
+    }
+    static void printList(Node temp){
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+        System.out.println();
+    }
+	public static void main(String[] args) {
+	    Node new_head=null;
+	    Node new_head1=null;
+	    Node new_head2=null;
+		head1 = new Node(20);
+		head1.next = new Node(3);
+		head1.next.next = new Node(20);
+		head1.next.next.next = new Node(5);
+		head1.next.next.next.next = new Node(10);
+		head1.next.next.next.next.next = new Node(15);
+		
+		System.out.print("List before sorting ");
+		printList(head1);
+		new_head = mergeSort(head1);
+		System.out.print("List after sorting ");
+		printList(new_head);
+	}
+}
