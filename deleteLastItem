@@ -1,0 +1,46 @@
+public class Main
+{
+    static Node head;
+    static Node sorted;
+    static class Node{
+        int data;
+        Node next;
+        Node(int d){
+            data = d;
+            next = null;
+        }
+    }
+    static void deleteLast(Node temp,int key){
+        Node x=null;
+        while(temp!=null){
+            if(temp.data == key)
+                x = temp;
+            temp = temp.next;
+        }
+        if(x!=null){
+            x.data = x.next.data;
+            x.next = x.next.next;
+        }
+    }
+    static void printList(Node temp){
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+	public static void main(String[] args) {
+		head = new Node(1);
+		head.next = new Node(2);
+		head.next.next = new Node(3);
+		head.next.next.next = new Node(5);
+		head.next.next.next.next = new Node(2);
+		head.next.next.next.next.next = new Node(10);
+		
+		System.out.print("Before sorting ");
+		printList(head);
+		deleteLast(head,2);
+		System.out.print("After deletion ");
+		printList(head);
+	}
+}
