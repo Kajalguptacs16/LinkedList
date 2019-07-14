@@ -17,7 +17,14 @@ public class Main
                 x = temp;
             temp = temp.next;
         }
-        if(x!=null){
+        if(x!=null && x.next==null){
+            Node ptr = head;
+            while(ptr.next!=x)
+                ptr = ptr.next;
+            ptr.next = null;
+            
+        }
+        if(x!=null && x.next!=null){
             x.data = x.next.data;
             x.next = x.next.next;
         }
@@ -33,13 +40,13 @@ public class Main
 		head = new Node(1);
 		head.next = new Node(2);
 		head.next.next = new Node(3);
-		head.next.next.next = new Node(5);
-		head.next.next.next.next = new Node(2);
-		head.next.next.next.next.next = new Node(10);
-		
+		head.next.next.next = new Node(4);
+		head.next.next.next.next = new Node(5);
+		head.next.next.next.next.next = new Node(4);
+		head.next.next.next.next.next.next = new Node(4);
 		System.out.print("Before sorting ");
 		printList(head);
-		deleteLast(head,2);
+		deleteLast(head,4);
 		System.out.print("After deletion ");
 		printList(head);
 	}
