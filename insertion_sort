@@ -1,0 +1,57 @@
+public class Main
+{
+    static Node head;
+    static Node sorted;
+    static class Node{
+        int data;
+        Node next;
+        Node(int d){
+            data = d;
+            next = null;
+        }
+    }
+    static Node insert_sort(Node temp){
+        sorted = null;
+        Node ptr = null;
+        while(temp!=null){
+            ptr = temp.next;
+            sortedList(temp);
+            temp = ptr;
+        }
+        return sorted;
+    }
+    static void sortedList(Node node){
+        if(sorted == null || sorted.data>=node.data){
+            node.next = sorted;
+            sorted = node;
+        }
+        else{
+            Node current = sorted;
+            while(current!=null && current.next.data<node.data){
+                current = current.next;
+            }
+            node.next = current.next;
+            current.next = node;
+        }
+    }
+    static void printList(Node temp){
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+	public static void main(String[] args) {
+		head = new Node(30);
+		head.next = new Node(3);
+		head.next.next = new Node(4);
+		head.next.next.next = new Node(20);
+		head.next.next.next.next = new Node(5);
+		
+		System.out.print("Before sorting ");
+		printList(head);
+		Node new_head = insert_sort(head);
+		System.out.print("After sorting ");
+		printList(new_head);
+	}
+}
